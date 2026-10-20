@@ -1,0 +1,47 @@
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/keramiek-schilderen/"
+  to = "/#schilderen"
+  status = 301
+[[redirects]]
+  from = "/open-atelier/"
+  to = "/#draaien"
+  status = 301
+[[redirects]]
+  from = "/stookservice/"
+  to = "/#stoken"
+  status = 301
+[[redirects]]
+  from = "/over-ons/"
+  to = "/#over-ons"
+  status = 301
+[[redirects]]
+  from = "/contact/"
+  to = "/#contact"
+  status = 301
+[[redirects]]
+  from = "/algemene-voorwaarden-kleiderboel/"
+  to = "/algemene-voorwaarden/"
+  status = 301
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    Content-Security-Policy = "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'"
+
+[[headers]]
+  for = "/assets/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
