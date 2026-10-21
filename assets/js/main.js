@@ -116,7 +116,17 @@ function vaseD(cx,yb,H,k,p,wob){var N=48,L=[],R=[],i,t,r,y;for(i=0;i<=N;i++){t=i
     st.className='status';
     if(err){st.className='status bad';st.textContent='Er ontbreekt nog iets. Kijk even naar de rood gemarkeerde velden.';return}
     f.classList.add('sending');btn.textContent='Versturen...';
-    // Preview: no backend yet. In the live build this posts to Netlify Forms.
-    setTimeout(function(){f.classList.remove('sending');btn.textContent='Verstuur bericht';st.className='status ok';st.textContent='Dankjewel! In de echte site gaat dit bericht naar Marlou en Jacky. We reageren binnen 72 uur.'},900);
+    var data={};new FormData(f).forEach(function(v,k){if(typeof v==='string')data[k]=v});
+    function done(ok){f.classList.remove('sending');btn.textContent='Verstuur bericht';
+      if(ok){f.reset();show('schilderen');st.className='status ok';st.textContent='Dankjewel! Je bericht is verstuurd. We reageren binnen 72 uur.'}
+      else{st.className='status bad';st.textContent='Het versturen lukte niet. Probeer het zo nog eens, of mail ons via kleiderboel@gmail.com.'}}
+    function post(){fetch('/.netlify/functions/contact',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(data)})
+      .then(function(r){return r.json().catch(function(){return{}})}).then(function(j){done(!!j.ok)}).catch(function(){done(false)})}
+    var file=document.getElementById('k-foto'),img=file&&file.files&&file.files[0];
+    if(img&&document.querySelector('input[name=onderwerp]:checked').value==='Stookservice'){
+      var u=URL.createObjectURL(img),im=new Image();
+      im.onload=function(){var s=Math.min(1,1600/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext('2d').drawImage(im,0,0,c.width,c.height);data.foto=c.toDataURL('image/jpeg',.82);URL.revokeObjectURL(u);post()};
+      im.onerror=function(){post()};im.src=u;
+    }else post();
   });
 })();
