@@ -333,3 +333,25 @@ footer{background:var(--wash);padding:64px 0 40px}
 }
 
 .terms-page{max-width:760px;padding-top:64px;padding-bottom:72px}.terms-page h1{font-size:clamp(2rem,5vw,3rem);margin-bottom:8px}.terms-page .ver{color:var(--ink-soft);margin:0 0 28px}.terms-page h2{font-size:1.4rem;margin:36px 0 12px}.terms-page p{margin:0 0 12px;line-height:1.6}.terms-page p b{margin-right:.35em}
+
+/* MOBILE: compacter, minder witruimte */
+@media (max-width:640px){
+  body{line-height:1.5}
+  section{padding:40px 0}
+  .hero{padding:24px 0 32px}
+  .hero .wrap{gap:22px}
+  .hero p.lead,.lead{margin-top:14px;font-size:1.06rem;line-height:1.45}
+  .hero .cta{margin-top:18px;gap:10px}
+  .sec-head{margin-bottom:22px}
+  .sec-head p{margin-top:8px;font-size:1.04rem;line-height:1.45}
+  h2{margin-bottom:0}
+  .offer{gap:16px}
+  .cell .body{padding:16px 18px 18px;gap:8px}
+  .cell h3{font-size:1.35rem}
+  .cell p{line-height:1.42}
+  .cell .price{margin-top:4px;padding-top:0}
+  .cell .go{margin-top:4px}
+  .about-grid{margin-top:24px;gap:22px}
+  .fire-head{gap:20px;margin-bottom:22px}
+  .foot{gap:22px}
+}
