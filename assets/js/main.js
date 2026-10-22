@@ -17,6 +17,7 @@ function scrollP(el){var r=el.getBoundingClientRect(),vh=window.innerHeight,s=Ma
 function rFinal(t){var belly=42+40*Math.sin(Math.PI*Math.pow(t,.85));return belly*(1-.38*smooth(.58,.93,t))+6*smooth(.93,1,t)}
 function rStart(t){return 64*(1-.18*t*t)}
 function radius(t,p,wob){var e=smooth(0,1,p),r=rStart(t)*(1-e)+rFinal(t)*e;if(wob)r+=Math.sin(t*8+p*10)*2.2*Math.sin(Math.PI*p);return r}
+function scrollPE(el){var r=el.getBoundingClientRect(),vh=window.innerHeight,s=Math.max(vh-r.height-16,vh*.2),range=Math.max(300,Math.min(560,s-90)),start=Math.min(s+vh*.3,vh-40);return clamp((start-r.top)/range,0,1)}
 function vaseD(cx,yb,H,k,p,wob){var N=48,L=[],R=[],i,t,r,y;for(i=0;i<=N;i++){t=i/N;r=radius(t,p,wob)*k;y=yb-H*t;L.push((cx-r).toFixed(1)+' '+y.toFixed(1));R.push((cx+r).toFixed(1)+' '+y.toFixed(1))}
   var r0=radius(0,p,wob)*k;return 'M'+L.join(' L')+' L'+R.reverse().join(' L')+' A'+r0.toFixed(1)+' '+(r0*.2).toFixed(1)+' 0 0 1 '+L[0]+' Z'}
 // ---------- motion 1: rotating ring, speeds up with scroll ----------
@@ -38,7 +39,7 @@ function vaseD(cx,yb,H,k,p,wob){var N=48,L=[],R=[],i,t,r,y;for(i=0;i<=N;i++){t=i
     top.setAttribute('cx',150);top.setAttribute('cy',y.toFixed(1));top.setAttribute('rx',rt.toFixed(1));top.setAttribute('ry',(rt*.2).toFixed(1));
     hole.setAttribute('cx',150);hole.setAttribute('cy',(y+1).toFixed(1));hole.setAttribute('rx',(rt*.84).toFixed(1));hole.setAttribute('ry',(rt*.16).toFixed(1));hole.setAttribute('opacity',smooth(.5,.8,p).toFixed(2))}
   if(REDUCE){draw(1);return}
-  var tick=false;function upd(){tick=false;draw(scrollP(st))}
+  var tick=false;function upd(){tick=false;draw(scrollPE(st))}
   function req(){if(!tick){tick=true;requestAnimationFrame(upd)}}
   window.addEventListener('scroll',req,{passive:true});window.addEventListener('resize',req);upd();
 })();
