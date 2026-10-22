@@ -17,7 +17,7 @@ function scrollP(el){var r=el.getBoundingClientRect(),vh=window.innerHeight,s=Ma
 function rFinal(t){var belly=42+40*Math.sin(Math.PI*Math.pow(t,.85));return belly*(1-.38*smooth(.58,.93,t))+6*smooth(.93,1,t)}
 function rStart(t){return 64*(1-.18*t*t)}
 function radius(t,p,wob){var e=smooth(0,1,p),r=rStart(t)*(1-e)+rFinal(t)*e;if(wob)r+=Math.sin(t*8+p*10)*2.2*Math.sin(Math.PI*p);return r}
-function scrollPE(el){var r=el.getBoundingClientRect(),vh=window.innerHeight,s=Math.max(vh-r.height-16,vh*.2),range=Math.max(300,Math.min(560,s-90)),start=Math.min(s+vh*.3,vh-40);return clamp((start-r.top)/range,0,1)}
+function scrollPE(el){var r=el.getBoundingClientRect(),vh=window.innerHeight;if(window.innerWidth>640)return clamp((vh*.39-r.top)/(vh*.195),0,1);return clamp((vh*.62-r.top)/(vh*.4),0,1);var s=Math.max(vh-r.height-16,vh*.2),range=Math.max(300,Math.min(560,s-90)),start=Math.min(s+vh*.3,vh-40);return clamp((start-r.top)/range,0,1)}
 function vaseD(cx,yb,H,k,p,wob){var N=48,L=[],R=[],i,t,r,y;for(i=0;i<=N;i++){t=i/N;r=radius(t,p,wob)*k;y=yb-H*t;L.push((cx-r).toFixed(1)+' '+y.toFixed(1));R.push((cx+r).toFixed(1)+' '+y.toFixed(1))}
   var r0=radius(0,p,wob)*k;return 'M'+L.join(' L')+' L'+R.reverse().join(' L')+' A'+r0.toFixed(1)+' '+(r0*.2).toFixed(1)+' 0 0 1 '+L[0]+' Z'}
 // ---------- motion 1: rotating ring, speeds up with scroll ----------
@@ -90,7 +90,7 @@ function vaseD(cx,yb,H,k,p,wob){var N=48,L=[],R=[],i,t,r,y;for(i=0;i<=N;i++){t=i
   function set(p){items.forEach(function(it){var e=smooth(0,1,p),val=Math.round(20+(it.target-20)*e),h=clamp(val/it.target,.02,1),c=it.from.map(function(f,i){return Math.round(f+(it.to[i]-f)*e)});
     it.n.textContent=val;it.el.style.setProperty('--h',h.toFixed(3));it.deg.style.color='rgb('+c.join(',')+')'})}
   if(REDUCE){set(1);return}
-  var tick=false;function heatP(){var r=wrap.getBoundingClientRect(),vh=window.innerHeight,m=window.innerWidth<=640,s=Math.max(vh-r.height-16,vh*.2),range=m?Math.max(160,Math.min(300,s-90)):Math.max(240,Math.min(460,s-90)),start=Math.min(s+vh*(m?.55:.3),vh-20);return clamp((start-r.top)/range,0,1)}
+  var tick=false;function heatP(){var r=wrap.getBoundingClientRect(),vh=window.innerHeight,m=window.innerWidth<=640;return clamp((vh*(m?.8:.565)-r.top)/(vh*(m?.45:.337)),0,1);var s=Math.max(vh-r.height-16,vh*.2),range=m?Math.max(160,Math.min(300,s-90)):Math.max(240,Math.min(460,s-90)),start=Math.min(s+vh*(m?.55:.3),vh-20);return clamp((start-r.top)/range,0,1)}
   function upd(){tick=false;set(heatP())}
   function req(){if(!tick){tick=true;requestAnimationFrame(upd)}}
   window.addEventListener('scroll',req,{passive:true});window.addEventListener('resize',req);upd();
