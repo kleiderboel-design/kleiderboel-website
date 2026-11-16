@@ -1,4 +1,3 @@
 User-agent: *
 Disallow:
-# Bij livegang: Sitemap-regel hieronder blijft staan
 Sitemap: https://kleiderboel.nl/sitemap.xml

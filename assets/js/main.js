@@ -110,6 +110,10 @@ function vaseD(cx,yb,H,k,p,wob){var N=48,L=[],R=[],i,t,r,y;for(i=0;i<=N;i++){t=i
   var pre={schilderen:'t-schilderen',stoken:'t-stoken',draaien:'t-draaien',groep:'t-groep'};
   document.querySelectorAll('a[data-topic]').forEach(function(a){a.addEventListener('click',function(){var r=document.getElementById(pre[a.dataset.topic]);if(r){r.checked=true;show(map[r.value])}})});
   var f=document.getElementById('contactForm'),st=document.getElementById('status'),btn=document.getElementById('send');
+  // Cloudflare Turnstile: alleen actief als data-turnstile-sitekey is ingevuld
+  var tsKey=f.getAttribute('data-turnstile-sitekey'),tsId=null;
+  if(tsKey){window.__tsReady=function(){tsId=window.turnstile.render('#ts',{sitekey:tsKey,language:'nl'})};
+    var sc=document.createElement('script');sc.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=__tsReady';sc.async=true;document.head.appendChild(sc)}
   function bad(id,cond){var w=document.getElementById(id).closest('.field');w.classList.toggle('invalid',cond);return cond}
   f.addEventListener('submit',function(e){
     e.preventDefault();
@@ -119,11 +123,11 @@ function vaseD(cx,yb,H,k,p,wob){var N=48,L=[],R=[],i,t,r,y;for(i=0;i<=N;i++){t=i
     if(err){st.className='status bad';st.textContent='Er ontbreekt nog iets. Kijk even naar de rood gemarkeerde velden.';return}
     f.classList.add('sending');btn.textContent='Versturen...';
     var data={};new FormData(f).forEach(function(v,k){if(typeof v==='string')data[k]=v});
-    function done(ok){f.classList.remove('sending');btn.textContent='Verstuur bericht';
-      if(ok){f.reset();show('schilderen');st.className='status ok';st.textContent='Dankjewel! Je bericht is verstuurd. We reageren binnen 72 uur.'}
+    function done(ok,copy){f.classList.remove('sending');if(tsId!==null&&window.turnstile)window.turnstile.reset(tsId);btn.textContent='Verstuur bericht';
+      if(ok){f.reset();show('schilderen');st.className='status ok';st.textContent='Dankjewel! Je bericht is verstuurd.'+(copy?' Je ontvangt een kopie per mail.':'')+' We reageren binnen 72 uur.'}
       else{st.className='status bad';st.textContent='Het versturen lukte niet. Probeer het zo nog eens, of mail ons via kleiderboel@gmail.com.'}}
-    function post(){fetch('/.netlify/functions/contact',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(data)})
-      .then(function(r){return r.json().catch(function(){return{}})}).then(function(j){done(!!j.ok)}).catch(function(){done(false)})}
+    function post(){fetch('/api/contact',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(data)})
+      .then(function(r){return r.json().catch(function(){return{}})}).then(function(j){done(!!j.ok,!!j.copy)}).catch(function(){done(false)})}
     var file=document.getElementById('k-foto'),img=file&&file.files&&file.files[0];
     if(img&&document.querySelector('input[name=onderwerp]:checked').value==='Stookservice'){
       var u=URL.createObjectURL(img),im=new Image();
