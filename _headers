@@ -5,6 +5,10 @@
 https://:project.pages.dev/*
   X-Robots-Tag: noindex, nofollow
 
+# Brochure-PDF niet apart laten indexeren (datums verouderen); de pagina zelf blijft indexeerbaar.
+/wp-content/uploads/*.pdf
+  X-Robots-Tag: noindex
+
 /*
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
