@@ -5,3 +5,11 @@
 /over-ons/ /#over-ons 301
 /contact/ /#contact 301
 /algemene-voorwaarden-kleiderboel/ /algemene-voorwaarden/ 301
+
+# Overige oude WordPress-adressen
+/about/ /#over-ons 301
+/about /#over-ons 301
+/home/ / 301
+/index.php / 301
+/blog/ / 301
+/feed/ / 301
