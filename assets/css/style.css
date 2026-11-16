@@ -54,7 +54,7 @@ p{margin:0}
 /* NAV */
 .nav{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none;font:400 1.6rem var(--font-display);letter-spacing:0}
+.brand{display:flex;align-items:center;gap:12px;min-height:44px;text-decoration:none;font:400 1.6rem var(--font-display);letter-spacing:0}
 .brand img{width:34px;height:auto;transition:transform .4s cubic-bezier(.16,1,.3,1)}
 .brand:hover img{transform:rotate(-10deg) scale(1.08)}
 .menu{display:flex;align-items:center;gap:28px;list-style:none;margin:0;padding:0}
@@ -177,7 +177,7 @@ td:first-child{text-align:left;padding-right:12px}
 td small{display:block;color:var(--ink-soft);font-size:.85rem}
 .note{margin-top:20px;color:var(--ink-soft)}
 details{background:var(--surface);border-radius:var(--r-card);padding:20px 24px;margin-top:28px}
-summary{cursor:pointer;font:400 1.15rem var(--font-display);list-style:none;display:flex;justify-content:space-between;align-items:center}
+summary{cursor:pointer;min-height:44px;font:400 1.15rem var(--font-display);list-style:none;display:flex;justify-content:space-between;align-items:center}
 summary::-webkit-details-marker{display:none}
 summary::after{content:"+";font-size:1.6rem;line-height:1;transition:transform .25s}
 details[open] summary::after{transform:rotate(45deg)}
