@@ -113,7 +113,8 @@ function vaseD(cx,yb,H,k,p,wob){var N=48,L=[],R=[],i,t,r,y;for(i=0;i<=N;i++){t=i
   // Cloudflare Turnstile: alleen actief als data-turnstile-sitekey is ingevuld
   var tsKey=f.getAttribute('data-turnstile-sitekey'),tsId=null;
   if(tsKey){window.__tsReady=function(){tsId=window.turnstile.render('#ts',{sitekey:tsKey,language:'nl'})};
-    var sc=document.createElement('script');sc.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=__tsReady';sc.async=true;document.head.appendChild(sc)}
+    var loadTs=function(){if(loadTs.done)return;loadTs.done=1;var sc=document.createElement('script');sc.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=__tsReady';sc.async=true;document.head.appendChild(sc)};
+    if('IntersectionObserver' in window){var io=new IntersectionObserver(function(en){if(en[0].isIntersecting){io.disconnect();loadTs()}},{rootMargin:'300px'});io.observe(f)}else{loadTs()}}
   function bad(id,cond){var w=document.getElementById(id).closest('.field');w.classList.toggle('invalid',cond);return cond}
   f.addEventListener('submit',function(e){
     e.preventDefault();
