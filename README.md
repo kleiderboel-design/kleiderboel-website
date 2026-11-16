@@ -15,6 +15,7 @@ Statische website (geen build nodig). Gemaakt door [Palster](https://palster.eu/
 - **Hoofdhost: Cloudflare Pages** (Git-koppeling, branch `main`, geen build command, output directory `.`).
 - **Backup: Netlify** (handmatig deployen, domein niet gekoppeld, behalve bij een noodomschakeling).
 - Alleen `*.pages.dev`-adressen krijgen `X-Robots-Tag: noindex` (zie `_headers`). Het eigen domein is indexeerbaar.
+- - Tijdens de migratie (nov 2026) is de productiebranch tijdelijk `cloudflare`; na de livegang gaat dit terug naar `main`.
 
 ## Environment variables (Cloudflare: Settings > Variables and Secrets, Production en Preview)
 - `RESEND_API_KEY` (verplicht, nooit in code)
